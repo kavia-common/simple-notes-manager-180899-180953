@@ -30,6 +30,6 @@ public class OpenApiConfig {
                 .addTagsItem(new Tag().name("Hello Controller").description("Basic endpoints for notesappbackend"))
                 .externalDocs(new ExternalDocumentation()
                         .description("Swagger UI")
-                        .url("/swagger-ui.html"));
+                        .url("/swagger-ui/index.html"));
     }
 }

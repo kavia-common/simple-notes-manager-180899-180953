@@ -25,13 +25,28 @@ public class HelloController {
         // Build an absolute URL based on the incoming request, honoring X-Forwarded-* headers
         String target = UriComponentsBuilder
                 .fromHttpRequest(new ServletServerHttpRequest(request))
-                .replacePath("/swagger-ui.html")
+                // springdoc 2.x canonical UI path
+                .replacePath("/swagger-ui/index.html")
                 .replaceQuery(null)
                 .build()
                 .toUriString();
 
         RedirectView rv = new RedirectView(target);
         // Use HTTP 1.1 compatible redirects when necessary (preserves 303/307 semantics if used)
+        rv.setHttp10Compatible(false);
+        return rv;
+    }
+
+    @GetMapping("/swagger-ui")
+    @Operation(summary = "Swagger UI (friendly path)", description = "Redirects to the canonical Swagger UI index")
+    public RedirectView swaggerUiRedirect(HttpServletRequest request) {
+        String target = UriComponentsBuilder
+                .fromHttpRequest(new ServletServerHttpRequest(request))
+                .replacePath("/swagger-ui/index.html")
+                .replaceQuery(null)
+                .build()
+                .toUriString();
+        RedirectView rv = new RedirectView(target);
         rv.setHttp10Compatible(false);
         return rv;
     }
