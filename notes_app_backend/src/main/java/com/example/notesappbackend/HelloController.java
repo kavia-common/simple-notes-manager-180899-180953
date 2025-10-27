@@ -19,23 +19,7 @@ public class HelloController {
         return "Hello, Spring Boot! Welcome to notesappbackend";
     }
 
-    @GetMapping("/docs")
-    @Operation(summary = "API Documentation", description = "Redirects to Swagger UI preserving original scheme/host/port")
-    public RedirectView docs(HttpServletRequest request) {
-        // Build an absolute URL based on the incoming request, honoring X-Forwarded-* headers
-        String target = UriComponentsBuilder
-                .fromHttpRequest(new ServletServerHttpRequest(request))
-                // springdoc 2.x canonical UI path
-                .replacePath("/swagger-ui/index.html")
-                .replaceQuery(null)
-                .build()
-                .toUriString();
 
-        RedirectView rv = new RedirectView(target);
-        // Use HTTP 1.1 compatible redirects when necessary (preserves 303/307 semantics if used)
-        rv.setHttp10Compatible(false);
-        return rv;
-    }
 
     @GetMapping("/swagger-ui")
     @Operation(summary = "Swagger UI (friendly path)", description = "Redirects to the canonical Swagger UI index")
